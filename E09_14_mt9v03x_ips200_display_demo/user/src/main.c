@@ -121,18 +121,8 @@ int main (void)
 			// 此处编写需要循环执行的代码
 //        if(mt9v03x_finish_flag)
 //        {
-////            ips200_displayimage03x((const uint8 *)mt9v03x_image, 240, 180);
 //					ips200_show_gray_image(0, 0, (const uint8 *)mt9v03x_image, MT9V03X_W, MT9V03X_H, 188, 120, 0);
 //					
-////          printf("IMAGE_Begin");
-////					for(int i = 0; i < MT9V03X_H ; i ++)
-////					{
-////						for(int j = 0; j < MT9V03X_W ; j ++ )
-////						{
-////							printf(" %d ",mt9v03x_image[i][j]);
-////						}
-////	 				}
-////					printf("IMAGE_Complete");
 //					mt9v03x_finish_flag = 0;
 //					
 //        }
