@@ -34,6 +34,7 @@
 ********************************************************************************************************************/
 
 #include "zf_common_headfile.h"
+#include "debug.h"
 
 // 打开新的工程或者工程移动了位置务必执行以下操作
 // 第一步 关闭上面所有打开的文件
@@ -95,9 +96,10 @@
 int main (void)
 {
     int num = 0;
+		uint16 t1 = 0, t2 = 0;
 		clock_init(SYSTEM_CLOCK_120M);                                              // 初始化芯片时钟 工作频率为 120MHz
     debug_init();                                                               // 初始化默认 Debug UART
-
+		wireless_uart_init();
     // 此处编写用户代码 例如外设初始化代码等
     ips200_init(IPS200_TYPE);
     ips200_show_string(0, 0, "mt9v03x init.");
@@ -113,25 +115,27 @@ int main (void)
     // 此处编写用户代码 例如外设初始化代码等
     while(1)
     {
-        // 此处编写需要循环执行的代码
-        if(mt9v03x_finish_flag)
-        {
-//            ips200_displayimage03x((const uint8 *)mt9v03x_image, 240, 180);
-					ips200_show_gray_image(0, 0, (const uint8 *)mt9v03x_image, MT9V03X_W, MT9V03X_H, 188, 120, 0);
-					
-//          printf("IMAGE_Begin");
-//					for(int i = 0; i < MT9V03X_H ; i ++)
-//					{
-//						for(int j = 0; j < MT9V03X_W ; j ++ )
-//						{
-//							printf(" %d ",mt9v03x_image[i][j]);
-//						}
-//	 				}
-//					printf("IMAGE_Complete");
-					mt9v03x_finish_flag = 0;
-			//zf_log(0, "01_printf_debug_log_demo zf_log with false.");
-
-        }
+      sent_data(t1,t2,0);  
+			t1 += 1;
+			t2 += 2;
+			// 此处编写需要循环执行的代码
+//        if(mt9v03x_finish_flag)
+//        {
+////            ips200_displayimage03x((const uint8 *)mt9v03x_image, 240, 180);
+//					ips200_show_gray_image(0, 0, (const uint8 *)mt9v03x_image, MT9V03X_W, MT9V03X_H, 188, 120, 0);
+//					
+////          printf("IMAGE_Begin");
+////					for(int i = 0; i < MT9V03X_H ; i ++)
+////					{
+////						for(int j = 0; j < MT9V03X_W ; j ++ )
+////						{
+////							printf(" %d ",mt9v03x_image[i][j]);
+////						}
+////	 				}
+////					printf("IMAGE_Complete");
+//					mt9v03x_finish_flag = 0;
+//					
+//        }
         // 此处编写需要循环执行的代码
     }
 }
