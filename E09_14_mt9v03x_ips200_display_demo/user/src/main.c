@@ -35,7 +35,7 @@
 
 #include "zf_common_headfile.h"
 #include "debug.h"
-
+#include "img_process.h"
 // 打开新的工程或者工程移动了位置务必执行以下操作
 // 第一步 关闭上面所有打开的文件
 // 第二步 project->clean  等待下方进度条走完
@@ -95,11 +95,8 @@
 
 int main (void)
 {
-    int num = 0;
-		uint16 t1 = 0, t2 = 0;
 		clock_init(SYSTEM_CLOCK_120M);                                              // 初始化芯片时钟 工作频率为 120MHz
     debug_init();                                                               // 初始化默认 Debug UART
-		wireless_uart_init();
     // 此处编写用户代码 例如外设初始化代码等
     ips200_init(IPS200_TYPE);
     ips200_show_string(0, 0, "mt9v03x init.");
@@ -115,34 +112,14 @@ int main (void)
     // 此处编写用户代码 例如外设初始化代码等
     while(1)
     {
-      sent_data(t1,t2,0);  
-			t1 += 1;
-			t2 += 2;
-			// 此处编写需要循环执行的代码
-//        if(mt9v03x_finish_flag)
-//        {
-//					ips200_show_gray_image(0, 0, (const uint8 *)mt9v03x_image, MT9V03X_W, MT9V03X_H, 188, 120, 0);
-//					
-//					mt9v03x_finish_flag = 0;
-//					
-//        }
-        // 此处编写需要循环执行的代码
+
+        if(mt9v03x_finish_flag)
+        {
+					Get_Road();
+					mt9v03x_finish_flag = 0;
+					
+        }
+        
     }
 }
-// **************************** 代码区域 ****************************
 
-// *************************** 例程常见问题说明 ***************************
-// 遇到问题时请按照以下问题检查列表检查
-// 
-// 问题1：屏幕不显示
-//      如果使用主板测试，主板必须要用电池供电 检查屏幕供电引脚电压
-//      检查屏幕是不是插错位置了 检查引脚对应关系
-//      如果对应引脚都正确 检查一下是否有引脚波形不对 需要有示波器
-//      无法完成波形测试则复制一个GPIO例程将屏幕所有IO初始化为GPIO翻转电平 看看是否受控
-// 
-// 问题2：显示 reinit 字样
-//      检查接线是否正常
-//      主板供电是否使用电量充足的电池供电
-// 
-// 问题2：显示图像杂乱 错位
-//      检查摄像头信号线是否有松动
